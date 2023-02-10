@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getallListing,getlListing,postlListing,updateListing,removelListing} = require('../controllers/listing')
+const {getallListing,getListing,postlListing,updateListing,removelListing} = require('../controllers/listing')
 
 //@Get All Listing
 //@sec public
@@ -8,7 +8,7 @@ router.get('/', getallListing)
 
 //@Get Single Listing
 //@sec public
-router.get('/:id', getlListing)
+router.get('/:id', getListing)
 
 
 
