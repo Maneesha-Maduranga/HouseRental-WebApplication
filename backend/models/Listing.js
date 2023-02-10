@@ -52,3 +52,9 @@ const validate = (title,address,city,description,price,rooms,bedroom) => {
     return  schema.validate({ title,address,city,description,price,rooms,bedroom });
 
 }
+
+
+module.exports = {
+    Listing,
+    validate
+}

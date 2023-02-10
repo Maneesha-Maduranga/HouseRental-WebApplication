@@ -23,6 +23,8 @@ app.use(cookieParser())
 //auth routes
 app.use("/api/v1/auth", require("./routes/auth"));
 
+//Listing routes
+app.use("/api/v1/listing", require("./routes/listing"));
 
 app.use(errorHandler)
 app.use(notFound)
