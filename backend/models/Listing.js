@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Joi = require('joi')
+const Joi = require('joi');
 
 
 const ListingSchema = new mongoose.Schema({
@@ -28,7 +28,12 @@ const ListingSchema = new mongoose.Schema({
       },
       bedroom:{
         type:Number,
-    }
+    },
+      publisher: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        required:true
+      },
     
 });
 

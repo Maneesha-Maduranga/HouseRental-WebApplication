@@ -2,7 +2,28 @@ const { Listing, validate } = require("../models/Listing");
 
 //Get All Listing Houses
 const getallListing = async (req, res) => {
-  const listings = await Listing.find({});
+ 
+  let queary;
+  
+  if(req.query){
+    const {address,city} = req.query
+    const quaryObject = {}
+  
+    if(address){
+      quaryObject.address = address
+    }
+    if(city){
+      quaryObject.city = city
+    }
+  
+     queary = Listing.find(quaryObject)
+  }else{
+    queary = Listing.find({})
+  }
+ 
+
+
+  const listings = await queary;
 
   res.status(200).json({
     success: true,
