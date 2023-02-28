@@ -29,15 +29,22 @@ const ListingSchema = new mongoose.Schema({
       bedroom:{
         type:Number,
     },
-      publisher: { 
+    photo:{
+      type:String,
+      default:"photo.jpg"
+    },
+    publisher: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User',
+        ref: 'user',
         required:true
-      },
-    
+    },
 });
 
+
+
 const Listing = mongoose.model('Listing', ListingSchema);
+
+
 
 
 const validate = (title,address,city,description,price,rooms,bedroom) => {

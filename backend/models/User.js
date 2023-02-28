@@ -23,7 +23,20 @@ const UserSchema = new mongoose.Schema({
       default: "user",
     },
   },
+},{
+  toJSON:{ virtuals: true },
+  toObject: { virtuals: true },
 });
+
+
+UserSchema.virtual('Listing', {
+  ref: 'Listing',
+  localField: '_id',
+  foreignField: 'publisher'
+});
+
+
+
 
 //Hash password
 UserSchema.pre("save", async function (next) {

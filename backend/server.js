@@ -1,13 +1,14 @@
 const express = require("express");
 require("dotenv").config();
 //error Handler middleware
-const errorHandler = require('./middleware/error')
+const errorHandler = require('./middleware/errorHandler')
 //Not Found middleware
 const notFound = require('./middleware/notFound')
 //express asyn-error
 require("express-async-errors");
 //Cookie Paresr
 const cookieParser = require('cookie-parser')
+
 
 const connectDB = require("./config/db");
 
@@ -25,6 +26,10 @@ app.use("/api/v1/auth", require("./routes/auth"));
 
 //Listing routes
 app.use("/api/v1/listing", require("./routes/listing"));
+
+
+//User routes
+app.use("/api/v1/user", require("./routes/user"));
 
 app.use(errorHandler)
 app.use(notFound)

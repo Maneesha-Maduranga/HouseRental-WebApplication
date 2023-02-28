@@ -38,6 +38,26 @@ const protect = async (req, res, next) => {
   }
 };
 
+
+const grant = (role) => {
+
+  return (req,res,next) => {
+
+      if(role.includes(req.user.role)){
+
+          next()
+          
+      }
+      else{
+         return res.status(401).json({
+              sucess:false,
+              err:"You dont Have Permission"
+          })
+      }
+  }
+}
+
 module.exports = {
   protect,
+  grant,
 };
