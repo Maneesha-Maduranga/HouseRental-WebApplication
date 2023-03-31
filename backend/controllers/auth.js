@@ -1,5 +1,7 @@
 const { User, validation } = require("../models/User");
 
+const maxAge = 3 * 24 * 60 * 60;
+
 const register = async (req, res) => {
   const { name, email, password, role } = req.body;
   const { error, value } = validation(name, email, password);
@@ -29,13 +31,13 @@ const register = async (req, res) => {
   res
     .status(201)
     .cookie("Token", token, {
-      maxAge: Date.now() + 3600 * 1000,
+      maxAge: maxAge * 1000,
       httpOnly: true,
     })
     .json({
       sucess: true,
       data: {
-        user: user.id,
+        user: user.name,
         token: token,
       },
     });
@@ -79,13 +81,15 @@ const login = async (req, res) => {
   res
     .status(200)
     .cookie("Token", token, {
-      maxAge: Date.now() + 3600 * 1000,
+      maxAge: maxAge * 1000,
       httpOnly: true,
     })
     .json({
       sucess: true,
-      data: user.id,
-      token: token,
+      data:{
+        user:user.name,
+        token:token
+      },
     });
 };
 

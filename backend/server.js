@@ -8,6 +8,8 @@ const notFound = require('./middleware/notFound')
 require("express-async-errors");
 //Cookie Paresr
 const cookieParser = require('cookie-parser')
+//cors
+const cors = require('cors')
 
 
 const connectDB = require("./config/db");
@@ -20,6 +22,8 @@ const app = express();
 app.use(express.json());
 //Cookie-parser
 app.use(cookieParser())
+//cors
+app.use(cors())
 
 //auth routes
 app.use("/api/v1/auth", require("./routes/auth"));

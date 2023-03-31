@@ -17,7 +17,7 @@ router.post('/login', login)
 //@des /api/v1/auth/me
 //@sec private
 
-router.post('/me',protect, dashboard)
+router.get('/me',protect, dashboard)
 
 
 
