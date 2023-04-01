@@ -23,7 +23,7 @@ export default Sales;
 
 export const salesLoader = async () => {
   try {
-    const responce = await axios.get("http://localhost:3000/api/v1/listing");
+    const responce = await axios.get("/api/v1/listing");
     return responce.data
   } catch (error) {
     console.log(error);

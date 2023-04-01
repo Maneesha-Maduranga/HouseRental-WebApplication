@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, registerUser } from '../features/user/userSlice';
+import { loginUser, reset} from '../features/user/userSlice';
 
 
 function Login() {
@@ -19,6 +19,7 @@ function Login() {
     if(isSucess){
       navigate('/dashboard')
     }
+    dispatch(reset())
   },[isSucess,navigate])
 
 

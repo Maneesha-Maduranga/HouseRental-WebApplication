@@ -74,7 +74,7 @@ export const detailLoader = async ({ params }) => {
   try {
     const { id } = params;
     const responce = await axios.get(
-      "http://localhost:3000/api/v1/listing/" + id
+      "/api/v1/listing/" + id
     );
     return responce.data;
   } catch (error) {

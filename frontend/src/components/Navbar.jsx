@@ -1,12 +1,23 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../features/modal/modalSlice";
 
-import { Link } from "react-router-dom";
+import { logoutUser, reset } from "../features/user/userSlice";
 
-
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Navbar() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isSucess } = useSelector((store) => store.user);
+  const userName = localStorage.getItem("userName");
+
+  useEffect(() => {
+    if (isSucess) {
+      navigate("/");
+    }
+    dispatch(reset());
+  }, [isSucess, logoutUser]);
 
   return (
     <div className='navbar bg-base-100'>
@@ -34,18 +45,34 @@ function Navbar() {
             tabIndex={0}
             className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'
           >
-            <li>
-              <Link to='login'>Login</Link>
-            </li>
-            <li>
-              <Link to='listing'>Listing</Link>
-            </li>
-            <li>
-              <Link to='contact'>Contact Us</Link>
-            </li>
-            <li>
-              <Link to='about'>About</Link>
-            </li>
+            {userName ? (
+              <>
+                <li>
+                  <Link to='#'>Profile</Link>
+                </li>
+                <li>
+                  <Link to='#'>My Listing</Link>
+                </li>
+                <li>
+                  <Link to='#'>Create Listing</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to='login'>Login</Link>
+                </li>
+                <li>
+                  <Link to='listing'>Listing</Link>
+                </li>
+                <li>
+                  <Link to='contact'>Contact Us</Link>
+                </li>
+                <li>
+                  <Link to='about'>About</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <Link className='btn btn-ghost normal-case text-xl' to='/'>
@@ -54,25 +81,49 @@ function Navbar() {
       </div>
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>
-        <li>
-            <Link to='login'>Login</Link>
-          </li>
-          <li>
-            <Link to='listing'>Listing</Link>
-          </li>
-          <li>
-            <Link to='contact'>Contact Us</Link>
-          </li>
-          <li>
-            <Link to='about'>About</Link>
-          </li>
+          {userName ? (
+            <>
+              <li>
+                <Link to='#'>Profile</Link>
+              </li>
+              <li>
+                <Link to='#'>My Listing</Link>
+              </li>
+              <li>
+                <Link to='#'>Create Listing</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to='login'>Login</Link>
+              </li>
+              <li>
+                <Link to='listing'>Listing</Link>
+              </li>
+              <li>
+                <Link to='contact'>Contact Us</Link>
+              </li>
+              <li>
+                <Link to='about'>About</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
-      <div className='navbar-end '>
-        <button className='btn' onClick={() => dispatch(openModal())}>
-          Get started
-        </button>
-      </div>
+      {userName ? (
+        <div className='navbar-end '>
+          <button className='btn' onClick={() => dispatch(logoutUser())}>
+            Log Out
+          </button>
+        </div>
+      ) : (
+        <div className='navbar-end '>
+          <button className='btn' onClick={() => dispatch(openModal())}>
+            Get started
+          </button>
+        </div>
+      )}
     </div>
   );
 }

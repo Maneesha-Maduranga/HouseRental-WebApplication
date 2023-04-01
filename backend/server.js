@@ -25,6 +25,10 @@ app.use(cookieParser())
 //cors
 app.use(cors())
 
+app.get('/',(req,res) => {
+  res.send("Home Page")
+})
+
 //auth routes
 app.use("/api/v1/auth", require("./routes/auth"));
 
