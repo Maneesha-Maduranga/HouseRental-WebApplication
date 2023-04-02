@@ -8,7 +8,6 @@
 - Express: for the server-side framework that handles HTTP requests and responses
 - React: for the user interface and client-side rendering
 - Node.js: for the backend environment that runs the server-side code
-- Mongoose: for connecting to and interacting with the MongoDB database
 
 ## License
 ### This project is licensed under the MIT License. Feel free to use, modify, and distribute the code as you see fit.
