@@ -18,7 +18,7 @@ const getallListing = async (req, res) => {
       quaryObject.city = { $regex : name, $options: 'i'}
     }
      
-    queary = Listing.find(quaryObject)
+    queary = Listing.find(quaryObject).select('-publisher')
 
   }else{
     queary = Listing.find()
@@ -40,7 +40,7 @@ const getListing = async (req, res) => {
 
   let id = req.params.id;
 
-  const listing = await Listing.findById(id);
+  const listing = await Listing.findById(id).populate({path:'publisher',select: 'name -_id '})
 
   res.status(200).json({
     success: true,
@@ -127,7 +127,7 @@ const removelListing = async (req, res) => {
   
     let id = req.params.id
 
-    let listing = await Listing.findById(id)
+    let listing = await Listing.findOne({'_id':id})
 
     if(!listing){
       throw new CustomError("No Listing With Given Id",404)
@@ -135,7 +135,7 @@ const removelListing = async (req, res) => {
 
      //Check whether login User Is Publisher of the Listing
     if(listing.publisher.toString() !== req.user.id){
-      throw new CustomError("Only Author can Update Listing",401)
+      throw new CustomError("Only Author can Delete Listing",401)
     }
    
 

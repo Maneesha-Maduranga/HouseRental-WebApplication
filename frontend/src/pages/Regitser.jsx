@@ -12,12 +12,14 @@ function Register() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [telephone, settelephone] = useState("");
   const [passwordOne, setPasswordOne] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
 
   const userData = {
     name,
     email,
+    telephone,
     passwordOne,
   };
   useEffect(() => {
@@ -67,6 +69,19 @@ function Register() {
                 placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
+          <div>
+            <label className='sr-only'>Mobile Number</label>
+
+            <div className='relative'>
+              <input
+                type='text'
+                className='w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm'
+                placeholder='Enter Mobile Number'
+                value={telephone}
+                onChange={(e) => settelephone(e.target.value)}
               />
             </div>
           </div>

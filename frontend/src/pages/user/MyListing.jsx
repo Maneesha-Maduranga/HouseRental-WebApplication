@@ -1,13 +1,23 @@
-import axios from "axios";
-import { useLoaderData } from "react-router-dom";
-import { Price, House, Night, User } from "../assets/icons";
+import {  useParams,useLoaderData,useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import {Price,Night,User,House} from '../../assets/icons'
+import {  useDispatch ,useSelector} from 'react-redux'
+import {deleteListing} from "../../features/listing/listSlice"
+import { useEffect } from 'react';
 
-function Detail() {
-  const { data } = useLoaderData();
-
-  return (
-    <>
-      <div className='card lg:card-side bg-base-100 shadow-xl'>
+function MyListing() {
+    const {data} = useLoaderData()
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const {isSucess} = useSelector((store) => store.listing)
+    useEffect(()=> {
+        if(isSucess){
+            navigate('/dashboard')
+        }
+    },[isSucess,navigate])
+   
+    return ( 
+        <div className='card lg:card-side bg-base-100 shadow-xl'>
         <figure>
           <img
             alt='Home'
@@ -55,31 +65,29 @@ function Detail() {
               <div className='mt-1.5 sm:mt-0'>
                 <p className='text-gray-500'>Publisher</p>
 
-                <p className='font-medium'>{data.publisher.name}</p>
+                <p className='font-medium'></p>
               </div>
             </div>
           </div>
 
           <div className='card-actions justify-end'>
-            <button className='btn btn-outline btn-info'>Send enquiry</button>
+            <button className='btn btn-outline btn-success'>Update</button>
+            <button className='btn btn-outline btn-error' onClick={()=>{dispatch(deleteListing(data._id))}}>Remove</button>
           </div>
           
         </div>
       </div>
-    </>
-  );
+    
+     );
 }
 
-export const detailLoader = async ({ params }) => {
-  try {
+export const listingLoader = async ({params}) => {
+   
     const { id } = params;
-    const responce = await axios.get(
-      "/api/v1/listing/" + id
-    );
-    return responce.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+    const responce = await axios.get('/api/v1/listing/'+ id)
+    return responce.data
+}
 
-export default Detail;
+
+
+export default MyListing;

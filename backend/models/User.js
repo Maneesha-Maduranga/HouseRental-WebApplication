@@ -12,6 +12,10 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Email Is Required"],
     unique: true,
   },
+  telephone: {
+    type: String,
+    required: [true, "Telephone Number Is Required"],
+  },
   password: {
     type: String,
     required: [true, "Password Is Required"],
@@ -23,17 +27,9 @@ const UserSchema = new mongoose.Schema({
       default: "user",
     },
   },
-},{
-  toJSON:{ virtuals: true },
-  toObject: { virtuals: true },
-});
+},);
 
 
-UserSchema.virtual('Listing', {
-  ref: 'Listing',
-  localField: '_id',
-  foreignField: 'publisher'
-});
 
 
 
@@ -82,14 +78,15 @@ const User = mongoose.model("user", UserSchema);
 
 //Joi Validation
 
-const validation = (name, email, password) => {
+const validation = (name, email, password,telephone) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().email(),
     password: Joi.string().min(6),
+    telephone:Joi.string().required()
   });
 
-  return schema.validate({ name, email, password });
+  return schema.validate({ name, email, password,telephone });
 };
 
 module.exports = {

@@ -1,10 +1,11 @@
 const { User, validation } = require("../models/User");
+const {Listing} = require('../models/Listing')
 
 const maxAge = 3 * 24 * 60 * 60;
 
 const register = async (req, res) => {
-  const { name, email, password, role } = req.body;
-  const { error, value } = validation(name, email, password);
+  const { name, email, password, role,telephone } = req.body;
+  const { error, value } = validation(name, email, password,telephone);
 
   if (error) {
     return res.status(400).json({
@@ -95,15 +96,15 @@ const login = async (req, res) => {
 
 const dashboard = async (req, res) => {
 
-  const {Listing} = await User.findById(req.user.id).populate('Listing')
+  const listing = await Listing.find({publisher:req.user.id})
 
-  const userData = await User.findById(req.user.id,'name email')
+  const userData = await User.findById(req.user.id,'name email telephone')
 
  
 
   res.json({
     sucess: true,
-    data: userData,Listing
+    data: userData,listing
   });
 };
 

@@ -48,13 +48,14 @@ function Navbar() {
             {userName ? (
               <>
                 <li>
-                  <Link to='#'>Profile</Link>
+                  <Link to='dashboard'>DashBoard</Link>
                 </li>
                 <li>
-                  <Link to='#'>My Listing</Link>
+                  <Link to='listing'>Listing</Link>
                 </li>
+                
                 <li>
-                  <Link to='#'>Create Listing</Link>
+                  <Link to='dashboard/create'>Create Listing</Link>
                 </li>
               </>
             ) : (
@@ -84,13 +85,13 @@ function Navbar() {
           {userName ? (
             <>
               <li>
-                <Link to='#'>Profile</Link>
+                <Link to='dashboard'>DashBoard</Link>
               </li>
               <li>
-                <Link to='#'>My Listing</Link>
-              </li>
+                  <Link to='listing'>Listing</Link>
+                </li>
               <li>
-                <Link to='#'>Create Listing</Link>
+                <Link to='dashboard/create'>Create Listing</Link>
               </li>
             </>
           ) : (

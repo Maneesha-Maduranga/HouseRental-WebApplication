@@ -23,6 +23,11 @@ import Error from "./pages/Error";
 import Detail, { detailLoader } from "./pages/Detail";
 import Register from "./pages/Regitser";
 import Login from "./pages/Login";
+
+import CreatListing from "./pages/user/CreateListing";
+import MyListing,{listingLoader} from "./pages/user/MyListing"
+
+
 import Dashboard,{dashboardLoader} from './pages/Dashboard';
 
 const router = createBrowserRouter(
@@ -37,6 +42,10 @@ const router = createBrowserRouter(
 
       <Route path='dashboard' element={<DashboardLayout />}>
         <Route index element={<Dashboard/>} loader={dashboardLoader} />
+        <Route path=":id" element={<MyListing />} loader={listingLoader} />
+        <Route path="create" element={<CreatListing />} />
+       
+
       </Route>
       
       <Route path="register" element={<Register/>} />
